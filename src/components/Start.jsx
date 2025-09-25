@@ -24,18 +24,19 @@ function Start(props) {
 	const [showAnswer, setShowAnswer] = useState(false)
 	
 	const handleChange = (e) => {
-		let val = Number(e.target.value)
-		if (validateNumQs(val)) {
-			setNumQs(val)
-			return
-		}
-
-		setNumQs(DEFAULT_NUM_QUESTIONS)
+		setNumQs(Number(e.target.value))
 	}
 
 	const [idxs, setIdxs] = useState( Array.from({length: MAX_NUM_QUESTIONS}, (_, i) => i) )
 
 	const start = () => {
+
+		if (!validateNumQs(numQs)) {
+			window.alert("num questions must be int between 1 and 220")
+			setNumQs(DEFAULT_NUM_QUESTIONS)
+			return
+		}
+
 		for (let q of questions) {
 			q.notes = ""
 		}
